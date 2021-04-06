@@ -258,6 +258,16 @@ Module.register("MMM-DWD-Pollen", {
         this.sendSocketNotification(url);
     },
 
+	getHeader: function () {
+		if (this.result.last_update) {
+			var dateString = this.result.last_update.replace(" Uhr", "");
+			var s = "DWD Daten von " + moment(dateString).format("DD.MM.YYYY HH:mm"); 
+			return s;
+		}
+
+		return null;
+	},
+
     socketNotificationReceived: function(notification, payload) {
         if (notification === "DWD_POLLEN_RESULT") {
             this.result = payload;
